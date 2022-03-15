@@ -4,11 +4,15 @@ import domain.Article;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        ArticleDao articleDao = new DaoFactory().articleDao();
+        ApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
+
+        ArticleDao articleDao = ac.getBean("articleDao", ArticleDao.class);
 
         Article article = new Article();
         article.setId(1L);
