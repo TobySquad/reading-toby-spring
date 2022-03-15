@@ -30,5 +30,20 @@ public class Application {
         System.out.println("findArticle.getTitle() = " + findArticle.getTitle());
 
         System.out.println(findArticle.getId() + " 조회 성공");
+
+        System.out.println("1-6 싱글톤 확인을 위한 출력");
+        DaoFactory factory = new DaoFactory();
+        ArticleDao articleDao1 = factory.articleDao();
+        ArticleDao articleDao2 = factory.articleDao();
+
+        System.out.println("---일반적으로 생성---");
+        System.out.println(articleDao1);
+        System.out.println(articleDao2);
+
+        System.out.println("---스프링 컨텍스트에서 가져옴---");
+        ArticleDao articleDao3 = ac.getBean("articleDao", ArticleDao.class);
+        ArticleDao articleDao4 = ac.getBean("articleDao", ArticleDao.class);
+        System.out.println(articleDao3);
+        System.out.println(articleDao4);
     }
 }
