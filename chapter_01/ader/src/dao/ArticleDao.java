@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
  * Ver 1_1 문제점
  *      1. 중복코드가 너무 많다. (Driver 가져오기, DB 커넥션 연결)
  *      2. main에서 테스트를 진행하고 있다.
+ * Ver 1_2 문제점
+ *      1. 단점이 많은 상속을 사용했다.(클래스간 결합도 증가)
  */
-public class ArticleDao {
+public abstract class ArticleDao {
 
     public void add(Article article) throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/toby_spring", "sa", "");
+        Connection conn = getConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("INSERT INTO article(id, writer, title, contents, created_time, updated_time) " +
                                                             "VALUES (?, ?, ?, ?, ?, ?) ");
@@ -33,8 +34,7 @@ public class ArticleDao {
     }
 
     public Article get(Long id) throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/toby_spring", "sa", "");
+        Connection conn = getConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("SELECT * " +
                                                             "FROM article " +
@@ -57,4 +57,6 @@ public class ArticleDao {
 
         return article;
     }
+
+    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }

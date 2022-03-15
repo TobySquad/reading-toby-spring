@@ -1,4 +1,5 @@
 import dao.ArticleDao;
+import dao.WooWahanArticleDao;
 import domain.Article;
 
 import java.sql.SQLException;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 public class Application {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        ArticleDao articleDao = new ArticleDao();
+        ArticleDao articleDao = new WooWahanArticleDao();
 
         Article article = new Article();
         article.setId(1L);
