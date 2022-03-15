@@ -1,4 +1,6 @@
 import dao.ArticleDao;
+import dao.CountingConnectionMaker;
+import dao.CountingDaoFactory;
 import dao.DaoFactory;
 import domain.Article;
 
@@ -45,5 +47,12 @@ public class Application {
         ArticleDao articleDao4 = ac.getBean("articleDao", ArticleDao.class);
         System.out.println(articleDao3);
         System.out.println(articleDao4);
+
+        System.out.println("---카운팅 dao 사용---");
+        AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+        ArticleDao articleDao5 = acac.getBean("articleDao", ArticleDao.class);
+
+        CountingConnectionMaker ccm = acac.getBean("connectionMaker", CountingConnectionMaker.class);
+        System.out.println("Connection count = " + ccm.getCounter());
     }
 }
