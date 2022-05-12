@@ -1,0 +1,9 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/testdb
+    username: sa
+    password:
+server:
+  port: 8085
